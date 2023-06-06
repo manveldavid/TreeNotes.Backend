@@ -12,9 +12,10 @@ namespace Persistence
         public static IServiceCollection AddPersistance(this IServiceCollection services, 
             IConfiguration configuration)
         {
+            var dbDir = "Data/DataBases/";
+            Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), dbDir));
             var notesConnectionString = configuration["NotesDbConnection"];
             var usersConnectionString = configuration["UsersDbConnection"];
-
             services.AddDbContext<NotesDbContext>(options =>
             {
                 options.UseSqlite(notesConnectionString);

@@ -2,6 +2,9 @@ using Serilog.Events;
 using Serilog;
 using WebAPI.Configures;
 
+var logDir = "Data/Logs/";
+Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), logDir));
+
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .WriteTo.File("Data/Logs/TreeNotesWebApiLogs-.txt", rollingInterval: RollingInterval.Day)

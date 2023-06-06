@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Actions.User.Queries.UserId;
+using MediatR;
 using Serilog;
 
 namespace Application.Common.Behaviors
@@ -12,8 +13,11 @@ namespace Application.Common.Behaviors
             CancellationToken cancellationToken)
         {
             var requestName = typeof(Request).Name;
-            Log.Information("Notes Request: {Name} {@Request}",
-                requestName, request);
+            if (requestName != typeof(UserIdQuery).Name)
+            {
+                Log.Information("Notes Request: {Name} {@Request}",
+                    requestName, request);
+            }
             var response = await next();
             return response;
         }

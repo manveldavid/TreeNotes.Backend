@@ -26,7 +26,7 @@ namespace WebAPI.Middleware
         private Task HandleCustomException(HttpContext context, Exception ex)
         {
             var responseCode = HttpStatusCode.InternalServerError;
-            var result = JsonSerializer.Serialize("unknown error");
+            var result = JsonSerializer.Serialize("Unknown error, details:\n" + ex.Message);
 
             switch (ex)
             {
