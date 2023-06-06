@@ -1,4 +1,7 @@
-# TreeNotes.Backend
+TreeNotes.Backend
+=================
+
+[![.NET Core WebAPI](https://img.shields.io/badge/.NET%20Foundation-blueviolet.svg)](https://dotnet.microsoft.com/)
 
 TreeNotes is an application that allows you to take note like tree in structure.
 
