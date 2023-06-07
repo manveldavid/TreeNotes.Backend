@@ -84,5 +84,29 @@ namespace Tests.Application.Actions.User.Commands
                 },
                 CancellationToken.None));
         }
+
+        [Fact]
+        public async Task ChangeLoginCommandHandler_Fail_UserExist()
+        {
+            //Arrange
+            var handler = new ChangeLoginCommandHandler(_users);
+
+            var login = "userA";
+            var password = "password";
+            var newLogin = "userC";
+
+            //Act
+            //Assert
+            await Assert.ThrowsAsync<TreeNoteUserExistException>(
+                async () =>
+                await handler.Handle(
+                new ChangeLoginCommand
+                {
+                    OldLogin = login,
+                    NewLogin = newLogin,
+                    Password = password
+                },
+                CancellationToken.None));
+        }
     }
 }
