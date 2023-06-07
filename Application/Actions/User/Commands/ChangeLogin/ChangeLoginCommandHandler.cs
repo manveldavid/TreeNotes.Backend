@@ -19,10 +19,20 @@ namespace Application.Actions.User.Commands.ChangeLogin
 
             #region Checks
 
+            var invalidLogin = await TreeNoteUserWorker.Finder
+                .UserFromLogin(_dbContext, request.NewLogin)
+                .ToListAsync();
+
+            if(invalidLogin.FirstOrDefault() != null)
+            {
+                throw new TreeNoteUserExistException(nameof(TreeNoteUser), request.NewLogin);
+            }
+
             var resultUserExist = await TreeNoteUserWorker.Finder
                 .UserFromLogin(_dbContext, request.OldLogin)
                 .ToListAsync();
             var userExist = resultUserExist.FirstOrDefault();
+
             if (userExist != null && user == null)
             {
                 throw new TreeNoteUserWrongPasswordException(nameof(TreeNoteUser), $"log:{request.OldLogin} pas:{request.Password}");
