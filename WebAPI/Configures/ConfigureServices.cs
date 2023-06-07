@@ -5,6 +5,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using Application;
 using Persistence;
+using Microsoft.AspNetCore.Authentication.Certificate;
 
 namespace WebAPI.Configures
 {
@@ -34,6 +35,8 @@ namespace WebAPI.Configures
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate();
         }
     }
 }

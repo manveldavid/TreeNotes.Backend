@@ -7,6 +7,7 @@ namespace WebAPI.Configures
     {
         public static void Configure(WebApplication app)
         {
+            app.UseAuthentication();
             app.UseSwagger();
             app.UseSwaggerUI(config =>
             {
@@ -22,6 +23,7 @@ namespace WebAPI.Configures
                 config.RoutePrefix = string.Empty;
             });
             app.UseCustomExceptions();
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseApiVersioning();
             app.MapControllers();
