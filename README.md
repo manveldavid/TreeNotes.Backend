@@ -12,4 +12,4 @@ It is server side application(backend) project
 [And http version](http://45.61.136.88:8000)
 
 ## License
-Project is distributed under the MIT Lisence
+Project is distributed under the MIT License
