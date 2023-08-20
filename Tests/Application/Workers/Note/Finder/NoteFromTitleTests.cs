@@ -9,9 +9,7 @@ namespace Tests.Application.Workers.Note.Finder
         public async Task NoteFromTitle_Success()
         {
             //Arrange
-            var createDate = DateTime.Today;
             var description = "root";
-            var lastEditDate = DateTime.Today;
             var noteId = ContentFactory.NoteId_Root;
             var appointedUserId = Guid.Empty;
             var isChecked = false;
@@ -37,10 +35,7 @@ namespace Tests.Application.Workers.Note.Finder
                 note.Creator == userId &&
                 note.User == appointedUserId &&
 
-                note.Weight == weight &&
-
-                note.LastEdit == lastEditDate &&
-                note.Creation == createDate);
+                note.Weight == weight);
 
             //Assert
             Assert.NotNull(note);

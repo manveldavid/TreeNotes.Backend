@@ -23,8 +23,6 @@ namespace Tests.Application.Actions.Note.Queries
             var weight = 100;
             var appointedUserId = Guid.Empty;
             var parentId = Guid.Empty;
-            var creationDate = DateTime.Today;
-            var lastEditDate = DateTime.Today;
             var isChecked = false;
             var isShared = false;
 
@@ -44,8 +42,6 @@ namespace Tests.Application.Actions.Note.Queries
                 note =>
                 note.Parent == parentId &&
                 note.User == appointedUserId &&
-                note.Creation == creationDate &&
-                note.LastEdit == lastEditDate &&
                 note.Description == description &&
                 note.Title == title &&
                 note.Share == isShared &&

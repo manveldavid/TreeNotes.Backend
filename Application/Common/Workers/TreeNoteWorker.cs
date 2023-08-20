@@ -44,6 +44,16 @@ namespace Application.Common.Workers
                 return entity;
             }
 
+            public static IQueryable<TreeNote> NotesFromDate(IDbContext<TreeNote> dbContext, Guid userId, DateTime date)
+            {
+                var entity = dbContext.Set
+                    .Where(note =>
+                    (note.Creator == userId || note.User == userId) &&
+                    (note.LastEdit > date));
+
+                return entity;
+            }
+
             public static IQueryable<TreeNote> AllChildsFromId(IDbContext<TreeNote> dbContext, Guid entityId)
             {
                 var childs = dbContext.Set.Where(n => n.Parent == entityId);

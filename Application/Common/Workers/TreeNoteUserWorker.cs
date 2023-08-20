@@ -18,6 +18,12 @@ namespace Application.Common.Workers
                 var entity = dbContext.Set.Where(x => x.Login == login);
                 return entity;
             }
+
+            public static IQueryable<TreeNoteUser> UserFromPasscode(IDbContext<TreeNoteUser> dbContext, string passcode)
+            {
+                var entity = dbContext.Set.Where(x => x.Code == passcode);
+                return entity;
+            }
         }
         public static class Encoder
         {

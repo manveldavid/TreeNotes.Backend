@@ -49,8 +49,8 @@ namespace Tests.Common
                         Creator = UserC_Id,
                         Share = false,
                         Check = false,
-                        Creation = DateTime.Today,
-                        LastEdit = DateTime.Today,
+                        Creation = DateTime.Now,
+                        LastEdit = DateTime.Now,
                         Parent = Guid.Empty,
                         Number = 1,
                         Weight = 100
