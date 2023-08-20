@@ -6,8 +6,7 @@ namespace Application.Actions.User.Commands.Delete
     {
         public DeleteCommandValidator() 
         {
-            RuleFor(x => x.Password).NotEmpty();
-            RuleFor(x => x.Login).NotEmpty();
+            RuleFor(x => x.Passcode).NotEmpty();
         }
     }
 }

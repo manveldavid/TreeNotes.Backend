@@ -13,24 +13,15 @@ namespace Application.Actions.User.Commands.Delete
         public async Task Handle(DeleteCommand request, CancellationToken cancellationToken)
         {
             var result = await TreeNoteUserWorker.Finder
-                .UserFromLoginPassword(_dbContext, request.Login, request.Password)
+                .UserFromPasscode(_dbContext, request.Passcode)
                 .ToListAsync();
             var user = result.FirstOrDefault();
 
             #region Checks
 
-            var resultUserExist = await TreeNoteUserWorker.Finder
-                .UserFromLogin(_dbContext, request.Login)
-                .ToListAsync();
-            var userExist = resultUserExist.FirstOrDefault();
-            if (userExist != null && user == null)
-            {
-                throw new TreeNoteUserWrongPasswordException(nameof(TreeNoteUser), $"log:{request.Login} pas:{request.Password}");
-            }
-
             if (user == null)
             {
-                throw new EntityNotFoundException(nameof(TreeNoteUser), $"log:{request.Login} pas:{request.Password}");
+                throw new EntityNotFoundException(nameof(TreeNoteUser), $"passcode:{request.Passcode}");
             }
 
             #endregion

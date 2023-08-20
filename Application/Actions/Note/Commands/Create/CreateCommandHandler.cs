@@ -39,11 +39,11 @@ namespace Application.Actions.Note.Commands.Create
             }
 
             #endregion
-
+            var dateTimeNow = DateTime.Now;
             var newNote = new TreeNote
             {
-                Creation = DateTime.Today,
-                LastEdit = DateTime.Today,
+                Creation = dateTimeNow,
+                LastEdit = dateTimeNow,
                 Id = Guid.NewGuid(),
                 User = Guid.Empty,
                 Creator = request.UserId,

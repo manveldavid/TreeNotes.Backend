@@ -4,7 +4,7 @@ namespace WebAPI.Common
 {
     public class UserRequestBodyDto
     {
-        [JsonPropertyName("login")] public string Login { get; set; } = null;
+        [JsonPropertyName("login")] public string? Login { get; set; } = null;
         [JsonPropertyName("password")] public string? Password { get; set; } = null;
         [JsonPropertyName("noteId")] public Guid? NoteId { get; set; } = null;
         [JsonPropertyName("parentId")] public Guid? Parent { get; set; } = null;

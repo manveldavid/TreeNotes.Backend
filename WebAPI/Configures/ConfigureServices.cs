@@ -5,7 +5,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using Application;
 using Persistence;
-using Microsoft.AspNetCore.Authentication.Certificate;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace WebAPI.Configures
 {
@@ -36,7 +38,34 @@ namespace WebAPI.Configures
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate();
+            services.AddAuthentication()
+                .AddJwtBearer(config =>
+                {
+                    config.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            if (context.Request.Query.ContainsKey("token"))
+                            {
+                                context.Token = context.Request.Query["token"];
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
+
+                    config.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidAudience = configuration["Audience"],
+                        ValidateIssuerSigningKey = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(configuration["Key"] ?? string.Empty))
+                    };
+                });
+            services.AddAuthorization();
         }
     }
 }

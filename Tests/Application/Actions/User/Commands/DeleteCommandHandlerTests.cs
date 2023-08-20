@@ -16,11 +16,12 @@ namespace Tests.Application.Actions.User.Commands
             var login = "userA";
             var password = "password";
 
+            var passcode = TreeNoteUserWorker.Encoder.CodeFromLoginPassword(login, password);
+
             //Act
             await handler.Handle(new DeleteCommand
             {
-                Login = login,
-                Password = password
+                Passcode = passcode
             }, CancellationToken.None);
 
             //Assert
@@ -36,6 +37,7 @@ namespace Tests.Application.Actions.User.Commands
 
             var login = "userRandom";
             var password = "password";
+            var passcode = TreeNoteUserWorker.Encoder.CodeFromLoginPassword(login, password);
 
             //Act
             //Assert
@@ -44,29 +46,7 @@ namespace Tests.Application.Actions.User.Commands
             await Assert.ThrowsAsync<EntityNotFoundException>(async () => 
                 await handler.Handle(new DeleteCommand
                 {
-                    Login = login,
-                    Password = password
-                }, CancellationToken.None));
-        }
-
-        [Fact]
-        public async Task DeleteCommandHandler_Fail_WrongPassword()
-        {
-            //Arrange
-            var handler = new DeleteCommandHandler(_users);
-
-            var login = "userA";
-            var password = "wrongPassword";
-
-            //Act
-            //Assert
-            var user = TreeNoteUserWorker.Finder.UserFromLogin(_users, login).FirstOrDefault();
-            Assert.NotNull(user);
-            await Assert.ThrowsAsync<TreeNoteUserWrongPasswordException>(async () =>
-                await handler.Handle(new DeleteCommand
-                {
-                    Login = login,
-                    Password = password
+                    Passcode = passcode
                 }, CancellationToken.None));
         }
     }

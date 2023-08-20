@@ -7,7 +7,6 @@ namespace WebAPI.Configures
     {
         public static void Configure(WebApplication app)
         {
-            app.UseAuthentication();
             app.UseSwagger();
             app.UseSwaggerUI(config =>
             {
@@ -26,6 +25,8 @@ namespace WebAPI.Configures
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseApiVersioning();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.MapControllers();
         }
     }
